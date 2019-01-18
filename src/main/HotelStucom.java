@@ -1,9 +1,17 @@
 package main;
 
+import java.io.IOException;
+
+import controller.Manager;
+
 public class HotelStucom {
+	
+	private static Manager manager;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		manager = new Manager();
+			
 
 	}
 
