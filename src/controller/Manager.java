@@ -18,7 +18,7 @@ public class Manager {
 	private static List<Room> rooms;
 	
 	public Manager() {
-		
+		int num = 4;
 	}
 	
 }
