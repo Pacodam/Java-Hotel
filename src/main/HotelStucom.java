@@ -2,15 +2,16 @@ package main;
 
 import java.io.IOException;
 
-import controller.Manager;
+import controller.HotelManager;
 
 public class HotelStucom {
 	
-	private static Manager manager;
+	private static HotelManager hotel;
 
 	public static void main(String[] args) {
 		
-		manager = new Manager();
+		hotel = HotelManager.getInstance();
+		hotel.loadHotelData();
 			
 
 	}
