@@ -6,14 +6,14 @@ import utils.RoomServices;
 
 public class Room {
 
-	private int number;
-	private int maxCap;
+	private String number;
+	private int maxCapacity;
 	private List<RoomServices> roomServices;
 	
-	public Room(int n, int mC, List<RoomServices> rS) {
+	public Room(String n, int maxCap, List<RoomServices> rS) {
 		
 		this.number = n;
-		this.maxCap = mC;
+		this.maxCapacity = maxCap;
 		this.roomServices = rS;
 	
 	}
