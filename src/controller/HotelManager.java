@@ -10,6 +10,7 @@ public class HotelManager {
 
 	
 	private static double money;
+	//hay que poner el tipo de Collection adecuado a cada caso
 	private static List<Customer> customers;
 	private static List<Worker> workers;
 	private static List<Room> rooms;

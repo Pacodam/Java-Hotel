@@ -12,7 +12,7 @@ public class HotelStucom {
 		
 		hotel = HotelManager.getInstance();
 		hotel.loadHotelData();
-			
+		
 
 	}
 
