@@ -6,37 +6,48 @@ import java.util.List;
 import exceptions.HotelException;
 
 public enum WorkersSkills {
-     MAINTENANCE, CLEANING, SWIMMING_POOL, SPA, BAR, FOOD, LAUNDERY;
+     MANTENIMIENTO, LIMPIEZA, PISCINA, SPA, BAR, COMIDA, LAVANDERIA;
 
 	public static List<WorkersSkills> getSkillsList(String[] list) throws HotelException {
 		List<WorkersSkills> skills = new ArrayList<>();
 		for(String s: list) {
 		  switch(s.toLowerCase()) {
-		     case "maintenance":
-		    	 skills.add(WorkersSkills.MAINTENANCE);
+		     case "mantenimiento":
+		    	 if(!skills.contains(WorkersSkills.MANTENIMIENTO)) {
+		    	   skills.add(WorkersSkills.MANTENIMIENTO);
+		    	 }
 		    	 break;
-		     case "cleaning":
-		    	 skills.add(WorkersSkills.CLEANING);
+		     case "limpieza":
+		    	 if(!skills.contains(WorkersSkills.LIMPIEZA)) {
+			    	   skills.add(WorkersSkills.LIMPIEZA);
+			    	 }
 		    	 break;
-		     case "swimming_pool":
-		    	 skills.add(WorkersSkills.SWIMMING_POOL);
+		     case "piscina":
+		    	 if(!skills.contains(WorkersSkills.PISCINA)) {
+			    	   skills.add(WorkersSkills.PISCINA);
+			    	 }
 		    	 break;
 		     case "spa":
-		    	 skills.add(WorkersSkills.SPA);
+		    	 if(!skills.contains(WorkersSkills.SPA)) {
+			    	   skills.add(WorkersSkills.SPA);
+			    	 }
 		    	 break;	 
 		     case "bar":
-		    	 skills.add(WorkersSkills.BAR);
+		    	 if(!skills.contains(WorkersSkills.BAR)) {
+			    	   skills.add(WorkersSkills.BAR);
+			    	 }
 		    	 break;
-		     case "food":
-		    	 skills.add(WorkersSkills.FOOD);
+		     case "comida":
+		    	 if(!skills.contains(WorkersSkills.COMIDA)) {
+			    	   skills.add(WorkersSkills.COMIDA);
+			    	 }
 		    	 break;
-		     case "laundery":
-		    	 skills.add(WorkersSkills.LAUNDERY);
-		    	 break;
-		     default:
-		    	 System.out.println(s);
-		    	 throw new HotelException(HotelException.WRONG_SKILL);  
-		  }
+		     case "lavanderia":
+		    	 if(!skills.contains(WorkersSkills.LAVANDERIA)) {
+			    	   skills.add(WorkersSkills.LAVANDERIA);
+			    	 }
+		    	 break; 
+		  }  
 		}
 		return skills;
 	}

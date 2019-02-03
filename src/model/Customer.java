@@ -6,14 +6,15 @@ import utils.RoomServices;
 
 public class Customer {
    
-	private int dni_numeric;
+	private String dni;
 	private int numPeople;
 	private List<RoomServices> roomServices;
 	private Room room;
 	
-	public Customer(int dN, int nP, List<RoomServices> rS) {
+	public Customer() {}
+	public Customer(String dni, int nP, List<RoomServices> rS) {
 		
-		this.dni_numeric = dN;
+		this.dni = dni;
 		this.numPeople = nP;
 		this.roomServices = rS;
 	}
@@ -26,12 +27,12 @@ public class Customer {
     	 return room;
      }
 
-	public int getDni_numeric() {
-		return dni_numeric;
+	public String getDni() {
+		return dni;
 	}
 
-	public void setDni_numeric(int dni_numeric) {
-		this.dni_numeric = dni_numeric;
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public int getNumPeople() {
@@ -49,6 +50,35 @@ public class Customer {
 	public void setRoomServices(List<RoomServices> roomServices) {
 		this.roomServices = roomServices;
 	}
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (dni == null) {
+			if (other.dni != null)
+				return false;
+		} else if (!dni.equals(other.dni))
+			return false;
+		return true;
+	}
+	
+	
+	
+	
      
      
 }

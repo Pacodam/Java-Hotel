@@ -6,7 +6,7 @@ import java.util.List;
 import exceptions.HotelException;
 
 public enum RoomServices {
-   TV, BALCONY, BEDDOUBLE, JACUZZI, MINIBAR, PHONE, SATELLITE, SWEET;
+   TV, BALCON, SPA, CAMADOBLE, JACUZZI, MINIBAR, TELEFONO, SATELITE, SWEET;
    
 	
 
@@ -15,32 +15,55 @@ public enum RoomServices {
 		for(String s: list) {
 		  switch(s.toLowerCase()) {
 		     case "tv":
-		    	 services.add(RoomServices.TV);
+		    	 if(!services.contains(RoomServices.TV)) {
+		    	    services.add(RoomServices.TV);
+		    	 }
 		    	 break;
-		     case "balcony":
-		    	 services.add(RoomServices.BALCONY);
+		     case "balcon":
+		    	 if(!services.contains(RoomServices.BALCON)) {
+			    	    services.add(RoomServices.BALCON);
+			     }
 		    	 break;
-		     case "beddouble":
-		    	 services.add(RoomServices.BEDDOUBLE);
+		     case "camadoble":
+		    	 if(!services.contains(RoomServices.CAMADOBLE)) {
+			    	    services.add(RoomServices.CAMADOBLE);
+			     }
 		    	 break;
 		     case "jacuzzi":
-		    	 services.add(RoomServices.JACUZZI);
+		    	 if(!services.contains(RoomServices.JACUZZI)) {
+			    	    services.add(RoomServices.JACUZZI);
+			     }
 		    	 break;	 
 		     case "minibar":
-		    	 services.add(RoomServices.MINIBAR);
+		    	 if(!services.contains(RoomServices.MINIBAR)) {
+			    	    services.add(RoomServices.MINIBAR);
+			     }
 		    	 break;
-		     case "phone":
-		    	 services.add(RoomServices.PHONE);
+		     case "telefono":
+		    	 if(!services.contains(RoomServices.TELEFONO)) {
+			    	    services.add(RoomServices.TELEFONO);
+			     }
 		    	 break;
-		     case "satellite":
-		    	 services.add(RoomServices.SATELLITE);
+		     case "satelite":
+		    	 if(!services.contains(RoomServices.SATELITE)) {
+			    	    services.add(RoomServices.SATELITE);
+			     }
 		    	 break;	
 		     case "sweet":
-		    	 services.add(RoomServices.SWEET);
+		    	 if(!services.contains(RoomServices.SWEET)) {
+			    	    services.add(RoomServices.SWEET);
+			     }
 		    	 break;
+		     case "spa":
+		    	 if(!services.contains(RoomServices.SPA)) {
+			    	    services.add(RoomServices.SPA);
+			     }
+		    	 break;
+		    	 /*
 		     default:
 		    	 System.out.println(s);
 		    	 throw new HotelException(HotelException.WRONG_SERVICE);  
+		     */
 		  }
 		}
 		return services;
