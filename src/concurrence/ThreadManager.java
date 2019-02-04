@@ -32,9 +32,10 @@ public class ThreadManager implements Runnable {
 	    }
         
         hotel = HotelManager.getInstance();
-        
         String line;
         try {
+          //dejamos pasar unos segundos hasta que se inicie el thread
+          Thread.sleep(5000);
           while ((line = br.readLine()) != null) {
           	System.out.println(" thread!!     " + line);
       	    try {

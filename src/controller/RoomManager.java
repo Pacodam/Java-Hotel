@@ -17,7 +17,6 @@ public class RoomManager {
 
 	public RoomManager() {}
 	
-	//¿porque leches si declaro getinstance aqui arriba luego no me coge nada
 	private static HotelManager hotel;
 	
 	/**

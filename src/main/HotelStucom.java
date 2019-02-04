@@ -21,7 +21,7 @@ public class HotelStucom {
 	
 	private static final String SEPARATOR = File.separator;
     private static final File INPUT_FILE = new File("loadHotel1.txt");
-	private static final String LINE = "========================";
+	private static final String LINE = "\\u001B31;1mh========================";
 	
 	private static HotelManager hotel;
 	private static Runnable myRunnable;
@@ -30,7 +30,6 @@ public class HotelStucom {
 		
 		BufferedReader br = null;
 		hotel = HotelManager.getInstance();
-		
 		
 		  //loading hotel from input file, using FileReader
           //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -42,67 +41,76 @@ public class HotelStucom {
 		  }
           
           String line;
+          double money = hotel.getMoney();
           try {
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null || money > 0) {
             	System.out.println("      " + line);
         	  try {
-	             String[] data = line.split(" ");
-	             switch(data[0].toLowerCase()){
-	                /*
-	                 case "speed":   //velocidad del thread size = 2
-		                 testLength(data.length, 2, 2);
-		                 int milis = testNumeric(data[1]);
-		                 myRunnable = new ThreadManager(milis);
-		                 myThread = new Thread(myRunnable);
-		                 myThread.run();
-		                 break;
-		                 */
-		             case "room":   //new room size = 3 o 4
-		                 testLength(data.length, 3, 4);
-		                 System.out.println(hotel.setRoom(data));
-		                 break;
-		                 
-		             case "worker":  //new worker, size = 4
-		            	 testLength(data.length, 4, 4);
-		            	 System.out.println(hotel.setWorker(data));
-		            	 break;
-		            	 
-		             case "reservation": //new reservation, size = 3 o 4
-		            	 testLength(data.length, 3, 4);
-		            	 System.out.println(hotel.setReservation(data));
-		            	 //mejor con una exception, que se verifique en un método cuando toque
-		            	 if(hotel.getMoney() < 1) {
-		            		 System.out.println(LINE);
-		            		 System.out.println("YOU'VE LOST ALL YOUR MONEY");
-		            		 System.out.println(LINE);
-		            	 }
-		            	 break;
-		            	 
-		             case "hotel":
-		            	 testLength(data.length, 1, 1);
-		            	 System.out.println(LINE);
-		            	 System.out.println(hotel.showRooms());
-		            	 System.out.println(LINE);
-		            	 break;
-		            	   
-		             default:
-	                    throw new HotelException(HotelException.OPTION_UNALLOWED);   
-		             }       
+        		  
+	              String[] data = line.split(" ");
+	              checkOrders(data);
+	             
                }catch(HotelException e) {
     	          System.out.println(e.getMessage());
 	           }
+        	  money = hotel.getMoney();
           }
           }catch(IOException e) {
         	  System.out.println(e.getMessage());
           }
           
-          enter();
+          
+          initConsole();
             
 	}
 
-        	 
+    public static void checkOrders(String[] data) throws HotelException {
+    	switch(data[0].toLowerCase()){
+        
+        case "speed":   //velocidad del thread size = 2
+            testLength(data.length, 2, 2);
+            int milis = testNumeric(data[1]);
+            myRunnable = new ThreadManager(milis);
+            myThread = new Thread(myRunnable);
+            myThread.start();
+            break;
+            
+        case "room":   //new room size = 3 o 4
+            testLength(data.length, 3, 4);
+            System.out.println(hotel.setRoom(data));
+            break;
+            
+        case "worker":  //new worker, size = 4
+       	 testLength(data.length, 4, 4);
+       	 System.out.println(hotel.setWorker(data));
+       	 break;
+       	 
+        case "reservation": //new reservation, size = 3 o 4
+       	 testLength(data.length, 3, 4);
+       	 System.out.println(hotel.setReservation(data));
+       	 //mejor con una exception, que se verifique en un método cuando toque
+       	 if(hotel.getMoney() < 1) {
+       		 System.out.println(LINE);
+       		 System.out.println("YOU'VE LOST ALL YOUR MONEY");
+       		 System.out.println(LINE);
+       	 }
+       	 break;
+       	 
+        case "hotel":
+       	 testLength(data.length, 1, 1);
+       	 System.out.println(LINE);
+       	 System.out.println(hotel.showRooms());
+       	 System.out.println(LINE);
+       	 break;
+       	   
+        default:
+           throw new HotelException(HotelException.OPTION_UNALLOWED);   
+        }       
+    }
     
-	public static void enter() {
+    
+    
+	public static void initConsole() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line;
         System.out.println("Enter data:");
@@ -111,6 +119,7 @@ public class HotelStucom {
 	    	   try { 
         	     line = br.readLine();
 	             String[] data = line.split(" ");
+	             //checkOrders(data);
 	             switch(data[0].toLowerCase()){
                  case "speed":   //velocidad del thread size = 2
 	                 testLength(data.length, 2, 2);
