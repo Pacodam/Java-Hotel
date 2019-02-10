@@ -25,8 +25,8 @@ public class RoomManager {
 	 * 2) Has, at least, one service from demanded ones (only if customer wants some service)
 	 * 3) The nearest capacity to the one demanded by customer
 	 * 4) Returns null if no room is found
-	 * @param customer
-	 * @return
+	 * @param customer Customer
+	 * @return Room
 	 * @throws HotelException 
 	 */
 	public Room findRoomForReservation(Customer customer) throws HotelException {
@@ -56,6 +56,12 @@ public class RoomManager {
 	}
 	
 	
+	/**
+	 * Gestion de la petición PROBLEM
+	 * @param room Room
+	 * @return String
+	 * @throws HotelException
+	 */
 	public String solveRoomProblem(Room room) throws HotelException {
 		
 		//guardamos el customer y lo quitamos de esa habitación
@@ -89,6 +95,12 @@ public class RoomManager {
 		
 	}
 	
+	/**
+	 * Gestion de la petición REQUEST
+	 * @param room Room
+	 * @param services List RoomServices
+	 * @return String
+	 */
 	public String solveRequest(Room room, List<RoomServices> services) {
 		//aqui construimos el String para devolver
 		StringBuilder sb = new StringBuilder();

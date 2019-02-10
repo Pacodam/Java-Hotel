@@ -37,7 +37,7 @@ public class ThreadManager implements Runnable {
           //dejamos pasar unos segundos hasta que se inicie el thread
           Thread.sleep(5000);
           while ((line = br.readLine()) != null) {
-          	System.out.println(" thread!!     " + line);
+          	//System.out.println(" thread!!     " + line);
       	    try {
 	             String[] data = line.split(" ");
 	             switch(data[0].toLowerCase()){

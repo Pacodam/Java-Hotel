@@ -14,6 +14,7 @@ import model.Customer;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import colors.ConsoleColors;
 
 import concurrence.ThreadManager;
 
@@ -21,39 +22,57 @@ public class HotelStucom {
 	
 	private static final String SEPARATOR = File.separator;
     private static final File INPUT_FILE = new File("loadHotel1.txt");
-	private static final String LINE = "\\u001B31;1mh========================";
+	private static final String LINE = "========================";
+	
+	private static ConsoleColors color;
 	
 	private static HotelManager hotel;
 	private static Runnable myRunnable;
 	private static Thread myThread;
 	public static void main(String[] args) {
 		
+		
+	
+		
+    
+		
 		BufferedReader br = null;
 		hotel = HotelManager.getInstance();
 		
-		  //loading hotel from input file, using FileReader
-          //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		  /*
+		   * Al iniciarse la aplicación, leemos el fichero de comandos de carga del hotel.
+		   * Vamos recorriendo todas las lineas del fichero y llamando a los métodos del
+		   * HotelManager encargados de gestionar los comandos. 
+		   * No tenemos en cuenta en esta parte los resultados de dinero en el Hotel (ello se hará
+		   * en el thread).
+		   * Cuando finaliza la lectura del fichero, se inicia la posibilidad de introducir comandos
+		   * por teclado.
+		   * El thread está programado para que se inicie en unos 5 segundos, para que de tiempo
+		   * de cargarse los comandos iniciales.
+		   */
+         
 		
+		  //Lectura del fichero
           try {
 			br = new BufferedReader(new FileReader(INPUT_FILE));
 		  } catch (FileNotFoundException e) {
 			e.getMessage();
 		  }
           
+          //Lectura de las lineas del fichero
           String line;
-          double money = hotel.getMoney();
+  
           try {
-            while ((line = br.readLine()) != null || money > 0) {
-            	System.out.println("      " + line);
+            while ((line = br.readLine()) != null ) {
+            	
         	  try {
-        		  
 	              String[] data = line.split(" ");
 	              checkOrders(data);
 	             
                }catch(HotelException e) {
     	          System.out.println(e.getMessage());
 	           }
-        	  money = hotel.getMoney();
+        	 
           }
           }catch(IOException e) {
         	  System.out.println(e.getMessage());
@@ -64,6 +83,11 @@ public class HotelStucom {
             
 	}
 
+	/**
+	 * El metodo recibe un String[] y ejecuta el comando de Hotel contenido en la posición 0
+	 * @param data String[]
+	 * @throws HotelException
+	 */
     public static void checkOrders(String[] data) throws HotelException {
     	switch(data[0].toLowerCase()){
         
@@ -98,9 +122,9 @@ public class HotelStucom {
        	 
         case "hotel":
        	 testLength(data.length, 1, 1);
-       	 System.out.println(LINE);
+       	 System.out.println(color.RED_BOLD_BRIGHT + LINE + color.RESET);
        	 System.out.println(hotel.showRooms());
-       	 System.out.println(LINE);
+       	 System.out.println(color.RED_BOLD + LINE + color.RESET);
        	 break;
        	   
         default:
@@ -109,7 +133,10 @@ public class HotelStucom {
     }
     
     
-    
+    /**
+     *Los comandos se pueden introducir por teclado, una vez se han cargado los datos
+     *del fichero de entrada
+     */
 	public static void initConsole() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line;
@@ -206,11 +233,4 @@ public class HotelStucom {
 
 }
 
-/*TODO THINGS:
- * 
- * ¿Que las rooms esten ordenadas?
- * Una vez funcione todo más o menos, pasar los comandos a filereader y las peticiones al thread
- * Poner en color rojo al mostrar el hotel
- * 
- * 
- */
+

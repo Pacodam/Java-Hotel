@@ -15,11 +15,11 @@ import model.Worker;
 import utils.RoomServices;
 import utils.RoomState;
 import utils.WorkersSkills;
-
+import colors.ConsoleColors;
 
 public class HotelManager {
 
-	
+	private static ConsoleColors color;
 	private static double money = 1000;
 	
 	private static RoomManager roomMng;
@@ -44,7 +44,7 @@ public class HotelManager {
 	 * Exceptions to check: the room exists; exists a customer.
 	 * The customer must be moved to another one. If not possible, the customer is cancelled
 	 * Room must be setted to BROKEN
-	 * @param data
+	 * @param data String[]
 	 * @return String
 	 * @throws HotelException 
 	 */
@@ -68,7 +68,7 @@ public class HotelManager {
     public String manageRequest(String[] data) throws HotelException {
     	
     	String confirmation = "";
-    	//if room not exists or exists but without customer, exception is thrown
+    	//if room not exists or exists without customer, exception is thrown
     	checkRoom(data[1]);
     	//the services to resolve must belong to that room, elsewhere an exception is thrown
     	String[] services = data[2].split(",");
@@ -317,7 +317,7 @@ public class HotelManager {
     	StringBuilder sb = new StringBuilder();
     	
     	for (String key : rooms.keySet()) {
-    	    sb.append(rooms.get(key));
+    	    sb.append(color.RED_BOLD_BRIGHT + rooms.get(key) + color.RESET);
     	    sb.append("\n");
     	}
     	return sb.toString();
