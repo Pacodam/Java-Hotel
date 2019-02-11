@@ -32,9 +32,6 @@ public class HotelStucom {
 	public static void main(String[] args) {
 		
 		
-	
-		
-    
 		
 		BufferedReader br = null;
 		hotel = HotelManager.getInstance();
@@ -126,7 +123,26 @@ public class HotelStucom {
        	 System.out.println(hotel.showRooms());
        	 System.out.println(color.RED_BOLD + LINE + color.RESET);
        	 break;
-       	   
+       	 
+        case "problem":
+       	 testLength(data.length, 2, 2);
+       	 System.out.println(hotel.manageProblem(data));
+       	 break;
+       	 
+        case "request":
+       	 testLength(data.length, 3, 3);
+       	 System.out.println(hotel.manageRequest(data));
+       	 break;
+       	 
+        case "leave":
+       	 testLength(data.length, 3, 3);
+       	 System.out.println(hotel.manageLeave(data));
+       	 break;
+       	 
+        case "exit":
+        	System.out.println("See ya...");
+        	break;
+       	 
         default:
            throw new HotelException(HotelException.OPTION_UNALLOWED);   
         }       
@@ -135,79 +151,27 @@ public class HotelStucom {
     
     /**
      *Los comandos se pueden introducir por teclado, una vez se han cargado los datos
-     *del fichero de entrada
+     *del fichero de entrada. Se puede salir introduciendo "exit"
      */
 	public static void initConsole() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line;
+        String command = "";
         System.out.println("Enter data:");
         
-	       do {
+	       do{
 	    	   try { 
         	     line = br.readLine();
 	             String[] data = line.split(" ");
-	             //checkOrders(data);
-	             switch(data[0].toLowerCase()){
-                 case "speed":   //velocidad del thread size = 2
-	                 testLength(data.length, 2, 2);
-	                 break;
-	                 
-	             case "room":   //new room size = 3 o 4
-	                 testLength(data.length, 3, 4);
-	                 System.out.println(hotel.setRoom(data));
-	                 break;
-	                 
-	             case "worker":  //new worker, size = 4
-	            	 testLength(data.length, 4, 4);
-	            	 System.out.println(hotel.setWorker(data));
-	            	 break;
-	            	 
-	             case "reservation": //new reservation, size = 3 o 4
-	            	 testLength(data.length, 3, 4);
-	            	 System.out.println(hotel.setReservation(data));
-	            	 //mejor con una exception, que se verifique en un método cuando toque
-	            	 if(hotel.getMoney() < 1) {
-	            		 System.out.println(LINE);
-	            		 System.out.println("YOU'VE LOST ALL YOUR MONEY");
-	            		 System.out.println(LINE);
-	            	 }
-	            	 break;
-	            	 
-	             case "hotel":
-	            	 testLength(data.length, 1, 1);
-	            	 System.out.println(LINE);
-	            	 System.out.println(hotel.showRooms());
-	            	 System.out.println(LINE);
-	            	 break;
-	            	 
-	             //petitions to transfer to the thread manager later
-	             case "problem":
-	            	 testLength(data.length, 2, 2);
-	            	 System.out.println(hotel.manageProblem(data));
-	            	 break;
-	            	 
-	             case "request":
-	            	 testLength(data.length, 3, 3);
-	            	 System.out.println(hotel.manageRequest(data));
-	            	 break;
-	            	 
-	             case "leave":
-	            	 testLength(data.length, 3, 3);
-	            	 System.out.println(hotel.manageLeave(data));
-	            	 break;
-	            	 
-	             //case "reservation": 
-	             default:
-                    throw new HotelException(HotelException.OPTION_UNALLOWED);   
-	             }
-                   
-	            }catch(IOException | HotelException e) {
-	    	       System.out.println(e.getMessage());
-	            }      
-	    }while(1 == 1);
+	             command = data[0];
+	             checkOrders(data);
+	    	   }catch(HotelException | IOException e) {
+	    	          System.out.println(e.getMessage());
+		       }	 
+	       }while(!command.contentEquals("exit"));
 	}
-	
-	
+	         
+	          
      /**
       * Test the required length for the input order.
       * @param length

@@ -96,11 +96,14 @@ public class HotelManager {
     	Room room = rooms.get(data[1]);
     	room.setCustomer(null);
     	room.setState(RoomState.UNCLEAN);
+    	//los dos String siguientes serviran para construir el mensaje de salida.
     	String workerDesasignation = "";
     	String customerSatisfaction = "";
+    	//controlamos la excepción para el caso de que nos metan un valor de dinero erróneo (sin la E final)
     	try {
     		String deleteE = data[2].substring(0, data[2].length()-1);
     		double m = Double.parseDouble(deleteE);
+    		//se evalua si quedan servicios pendiente de realizar o no, en su caso se descuenta el 50% del pago
     		if(room.getPendingRequests().isEmpty()) {
     			customerSatisfaction = " Satisfied clients. You win " + m + " E";
     			this.money += m;
@@ -114,6 +117,7 @@ public class HotelManager {
     		throw new HotelException(HotelException.INCORRECT_MONEY);
     	}
     	
+    	//Miramos si había o no trabajadores en la Room, para quitarlos y para construir el mensaje adecuado
     	List<Worker> roomWorkers = room.getWorker();
     	if(roomWorkers.isEmpty()) {
     		workerDesasignation = " No workers on that room";
@@ -122,18 +126,14 @@ public class HotelManager {
     		workerDesasignation = " Worker " + room.getWorkerNames() + " desasigned";
     		room.getWorker().clear();
     	}
-    	
+    	//Construcción del mensaje de salida final:
     	StringBuilder sb = new StringBuilder();
     	sb.append("--> Room " + room.getNumber() + " free and set to " + room.getState() + " <--\n");
     	sb.append("--> " + workerDesasignation + " <--\n");
     	sb.append("--> " + customerSatisfaction + " <--");
     	
 		return sb.toString();
-    	/*
-    	For example – "Chaitanya".substring(2,5) would return "ait".
-    	It throws IndexOutOfBoundsException If the beginIndex is less
-    	than zero OR beginIndex > endIndex OR endIndex is greater than the 
-    	length of String.*/
+    	
 	}
 	
     /**
@@ -257,6 +257,13 @@ public class HotelManager {
      		
     }
     
+    /**
+     * Dado un String correspondiente al número de una habitación, verificamos si en esa 
+     * habitación hay alguien o no, así como si la habitación existe, lanzando la excepción
+     * pertinente
+     * @param room String
+     * @throws HotelException
+     */
     public static void checkRoom(String room) throws HotelException {
     	if(rooms.containsKey(room)) {
     		Customer customer = rooms.get(room).getCustomer();
@@ -270,6 +277,13 @@ public class HotelManager {
     }
     
     
+    /**
+     * Recibe un String y se verifica que tenga el tamaño de 8 caracteres y que sea numérico,
+     * al resultado se le incorpora la letra correspondiente y se devuelve el String resultante.
+     * @param dn String
+     * @return String
+     * @throws HotelException
+     */
     public static String checkDNI(String dn) throws HotelException {
     	int dni;
     	try {
@@ -283,6 +297,13 @@ public class HotelManager {
     	return getDNIfull(dn);	
     }
     
+    /**
+     * Verificamos que el dato número de ocupantes sea correcto, es decir numérico, y lo
+     * devolvemos en formato int o lanzamos la excepción.
+     * @param num String
+     * @return int
+     * @throws HotelException
+     */
     public static int checkOccupants(String num) throws HotelException {
     	int occupants;
     	try {
@@ -293,6 +314,11 @@ public class HotelManager {
     	return occupants;
     }
     
+    /**
+     * Chequeo de que el número de habitación no termine en 13
+     * @param num String
+     * @throws HotelException
+     */
     public static void checkNum13(String num) throws HotelException {
     	
     	String sub = num.substring(1, num.length());
@@ -303,6 +329,11 @@ public class HotelManager {
     }
     
     
+    /**
+     * Recibe un String y devuelve un dni completo con su letra correspondiente
+     * @param dni String
+     * @return String
+     */
     public static String getDNIfull(String dni) {
         String characters="TRWAGMYFPDXBNJZSQVHLCKE";
         int modulo= Integer.parseInt(dni) % 23;
@@ -310,6 +341,11 @@ public class HotelManager {
         return dni + letra; 
         } 
     
+    /**
+     * Método para mostrar las habitaciones del hotel
+     * @return String
+     * @throws HotelException
+     */
     public String showRooms() throws HotelException {
     	if(rooms.isEmpty()) {
     		throw new HotelException(HotelException.NO_ROOMS);
